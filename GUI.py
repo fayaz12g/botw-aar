@@ -226,31 +226,6 @@ def check_process_running(process_name):
             return True
     return False
 
-class PrintRedirector:
-    def __init__(self, text_widget):
-        self.text_widget = text_widget
-        self.buffer = ""
-        self.text_widget.configure(state='disabled')  # Disable user input
-        # self.text_widget.configure("custom_tag", text_color='lightgray', fg_color='black')
-
-    def write(self, text):
-        self.buffer += text
-        self.text_widget.configure(state='normal')  # Enable writing
-        self.text_widget.insert("end", text, "custom_tag")  # Apply custom_tag to the inserted text
-        self.text_widget.see("end")
-        self.text_widget.configure(state='disabled')  # Disable user input again
-
-    def flush(self):
-        self.text_widget.configure(state='normal')  # Enable writing
-        try:
-            self.text_widget.insert("end", self.buffer, "custom_tag")  # Apply custom_tag to the buffered text
-        except Exception as e:
-            self.text_widget.insert("end", f"Error: {e}\n", "custom_tag")  # Display the exception message with custom_tag
-        finally:
-            self.text_widget.see("end")
-            self.text_widget.configure(state='disabled')  # Disable user input again
-            self.buffer = ""
-
 scaling_factor = 0.762
 HUD_pos = "corner"
 
