@@ -1,17 +1,17 @@
 import sys
 import os
 
-def pmtok_download(input_folder, mod_name):
+def BOTW_download(input_folder, mod_name):
     import requests
     import zipfile
     import shutil
     import getpass
 
     # URL of the ZIP file
-    zip_url = "https://github.com/fayaz12g/aar-files/raw/main/pmtok/Origami.zip"
+    zip_url = "https://github.com/fayaz12g/aar-files/raw/main/BOTW/Origami.zip"
 
     username = getpass.getuser()
-    directory_path = f"C:/Users/{username}/AppData/Roaming/AnyAspectRatio/perm/pmtok"
+    directory_path = f"C:/Users/{username}/AppData/Roaming/AnyAspectRatio/perm/BOTW"
     # Check if the directory exists
     if not os.path.exists(directory_path):
         # Create the directory if it doesn't exist
@@ -19,8 +19,8 @@ def pmtok_download(input_folder, mod_name):
         print(f"Directory {directory_path} created successfully.")
     else:
         print(f"Directory {directory_path} already exists.")
-    pmtok_folder = f"C:/Users/{username}/AppData/Roaming/AnyAspectRatio/perm/pmtok"
-    zip_file_source = os.path.join(pmtok_folder, "Origami.zip")
+    BOTW_folder = f"C:/Users/{username}/AppData/Roaming/AnyAspectRatio/perm/BOTW"
+    zip_file_source = os.path.join(BOTW_folder, "Origami.zip")
 
     if not os.path.isfile(zip_file_source):
         # Download the ZIP file

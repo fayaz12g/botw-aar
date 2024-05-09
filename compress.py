@@ -1,7 +1,7 @@
 import os
 import zstandard as zstd
 
-def pmtok_compress(path):
+def BOTW_compress(path):
     for root, dirs, files in os.walk(path):
         for file in files:
             if file.endswith('.bfres'):

@@ -37,15 +37,15 @@ import pyautogui
 #### Create Window ####
 #######################
 
-tool_version = "1.0.2"
+tool_version = "1.0.0"
 
 root = customtkinter.CTk()
-root.title(f"Fayaz's Settings {tool_version} for Paper Mario: The Origami King")
+root.title(f"Fayaz's Settings {tool_version} for The Legend of Zelda: Breath of the Wild")
 root.geometry("500x720")
 
 customtkinter.set_appearance_mode("system")
 customtkinter.set_default_color_theme("blue")  
-windowtitle = customtkinter.CTkLabel(master=root, font=(CTkFont, 20), text="Fayaz's PMTOK Utility {tool_version}")
+windowtitle = customtkinter.CTkLabel(master=root, font=(CTkFont, 20), text="Fayaz's BOTW Utility {tool_version}")
 
 ###############################################
 ###########    GLOBAL SETTINGS      ###########
@@ -306,25 +306,25 @@ def create_mod():
     if os.path.exists(text_folder):
         shutil.rmtree(text_folder)
 
-    # Download the PMTOK Layout Files
-    pmtok_download(input_folder, mod_name)
+    # Download the BOTW Layout Files
+    BOTW_download(input_folder, mod_name)
 
     # Create the PCHTXT Files
     visual_fixes = create_visuals(do_graphics_increase.get(), do_120fps.get(), do_60fps.get())
-    pmtok_patch(patch_folder, str(ratio_value), str(scaling_factor), visual_fixes)
+    BOTW_patch(patch_folder, str(ratio_value), str(scaling_factor), visual_fixes)
     ui_folder = os.path.join(input_folder, mod_name, "romfs", "ui")
 
     # Download and put Controlelr Files in Place
     # controller_files(controller_type.get(), theromfs_folder)
 
-    # Decomperss the .zst into .bfres
-    pmtok_extract(ui_folder)
+    # # Decomperss the .zst into .bfres
+    # BOTW_extract(ui_folder)
 
-    # Perform Pane Strecthing
-    pmtok_hud(str(ratio_value), HUD_pos, ui_folder)
+    # # Perform Pane Strecthing
+    # BOTW_hud(str(ratio_value), HUD_pos, ui_folder)
 
-    # Compress layout folders and delete them
-    pmtok_compress(ui_folder)
+    # # Compress layout folders and delete them
+    # BOTW_compress(ui_folder)
 
 
     if open_when_done.get() == True:
@@ -663,7 +663,7 @@ notebook.add("Credits")
 
 credits_label = ClickableLabel(master=notebook.tab("Credits"), text=
                     ('Utility created by fayaz\n'
-                     'https://github.com/fayaz12g/PMTOK-aar\n'
+                     'https://github.com/fayaz12g/BOTW-aar\n'
                      'ko-fi.com/fayaz12\n'
                      '\n\nWith special help from\n'
                      'Christopher Fields (cfields7)\n'

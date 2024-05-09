@@ -20,7 +20,7 @@ def asm_to_hex(asm_code):
     encoding, count = ks.asm(asm_code)
     return ''.join('{:02x}'.format(x) for x in encoding)
 
-def pmtok_hex23(num):
+def BOTW_hex23(num):
     num = round(num, 15)
     packed = struct.pack('!f', num)
     full_hex = ''.join('{:02x}'.format(b) for b in packed)
