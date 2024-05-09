@@ -306,8 +306,8 @@ def create_mod():
     if os.path.exists(text_folder):
         shutil.rmtree(text_folder)
 
-    # Download the BOTW Layout Files
-    BOTW_download(input_folder, mod_name)
+    # # Download the BOTW Layout Files
+    # BOTW_download(input_folder, mod_name)
 
     # Create the PCHTXT Files
     visual_fixes = create_visuals(do_60fps.get(), do_dynamic.get())
