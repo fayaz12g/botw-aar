@@ -55,9 +55,9 @@ windowtitle = customtkinter.CTkLabel(master=root, font=(CTkFont, 20), text="Faya
 screen_width, screen_height = pyautogui.size()
 ar_numerator = StringVar(value=f"{screen_width}")
 ar_denominator = StringVar(value=f"{screen_height}")
-do_graphics_increase = BooleanVar(value=True)
+
 do_60fps = BooleanVar(value=True)
-do_120fps = BooleanVar(value=False)
+do_dynamic = BooleanVar(value=True)
 
 # # Controller
 # controller_types = ["Switch", "Xbox", "Playstation"]
@@ -310,7 +310,7 @@ def create_mod():
     BOTW_download(input_folder, mod_name)
 
     # Create the PCHTXT Files
-    visual_fixes = create_visuals(do_graphics_increase.get(), do_120fps.get(), do_60fps.get())
+    visual_fixes = create_visuals(do_60fps.get(), do_dynamic.get())
     BOTW_patch(patch_folder, str(ratio_value), str(scaling_factor), visual_fixes)
     ui_folder = os.path.join(input_folder, mod_name, "romfs", "ui")
 
@@ -353,9 +353,8 @@ def pack_widgets():
     aspect_ratio_divider.pack(side="left")
     denominator_entry.pack(side="left")
     
-    graphics_checkbox.pack(padx=5, pady=5)
     fps60_checkbox.pack(padx=5, pady=5)
-    fps120_checkbox.pack(padx=10, pady=10)
+    dynamic_checkbox.pack(padx=10, pady=10)
     
     # image_label.pack()
 
@@ -416,9 +415,8 @@ def forget_packing():
     aspect_ratio_divider.pack_forget()
     denominator_entry.pack_forget()
     
-    graphics_checkbox.pack_forget()
     fps60_checkbox.pack_forget()
-    fps120_checkbox.pack_forget()
+    dynamic_checkbox.pack_forget()
 
     # image_label.pack_forget()
     # image_layout_label.pack_forget()
@@ -494,9 +492,8 @@ denominator_entry.configure(text_color='gray')
 denominator_entry.bind("<FocusIn>", lambda event: handle_focus_in(denominator_entry, f"{screen_height}"))
 denominator_entry.bind("<FocusOut>", lambda event: handle_focus_out(denominator_entry, f"{screen_height}"))
 
-graphics_checkbox = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="Use 1920x1080", variable=do_graphics_increase)
 fps60_checkbox = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="60 FPS", variable=do_60fps)
-fps120_checkbox = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="120 FPS (Expiremental)", variable=do_120fps)
+dynamic_checkbox = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="Disabled Dynamic Resolution", variable=do_dynamic)
 
 # ##########################
 # ####### Controller #######

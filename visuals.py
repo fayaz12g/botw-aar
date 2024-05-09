@@ -1,60 +1,27 @@
 
-def create_visuals(do_graphics_increase, do_120fps, do_60fps):
+def create_visuals(do_120fps, do_60fps):
 
-    graphics = "disabled"
     fps60 = "disabled"
-    fps120 = "disabled"
+    dynamic = "disabled"
 
-    do_island = False
-    
     visual_fixes = []
 
-    if do_graphics_increase:
-        graphics = "enabled"
     if do_60fps:
         fps60 = "enabled"
     if do_120fps:
-        fps120 = "enabled"
+        dynamic = "enabled"
         
-    visuals1_0_1 = f'''// 1920x1080 Internal Resolution
-@{graphics}
-00605de4 01F08052
-00605de8 02878052
-0062c798 01F08052
-0062c79c 02878052
-00959dac 01F08052
-00959db0 02878052
-005f17fc 02F08052
-005f1800 03878052
-005f1858 02F08052
-005f185c 03878052
-005f18b4 02F08052
-005f18b8 03878052
-005bf4a4 09878052
-005bf4a8 08F08052
-005bf63c 09878052
-005bf640 08F08052
-005bf45c 09F08052
-005bf468 0A878052
-005bf4a4 09878052
-005bf4a8 08F08052
-005bf578 09F08052
-005bf584 0A878052
-0081502c 09F08052
-0081504c 0A878052
-005b984c 08F080D2
-@stop
-
-// 60 FPS Mode
+    visuals1_0_1 = f'''// 60 FPS Mode
 @{fps60}
-001babdc 35008052
-@stop
+01614954 08008052
+01614D84 08F08752
+01614DB0 20008052
+01614DA4 21000012
+@disabled
 
 // 120 FPS Mode (Expiremental)
-@{fps120}
-0058110c 0310211E
-00581120 0310381E
-00581138 03102E1E
+@{dynamic}
+0150ABA4 1F2003D5
 @stop
 '''
 
