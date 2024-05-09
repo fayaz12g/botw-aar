@@ -10,13 +10,13 @@ def BOTW_patch(patch_folder, ratio_value, scaling_factor, visual_fixes):
     ratio_value = float(ratio_value)
     print(f"The scaling factor is {scaling_factor}.")
     hex_value = make_hex(ratio_value, 0)
-    version_variables = ["1.0.1"]
+    version_variables = ["1.6.0"]
     for version_variable in version_variables:
         file_name = f"{version_variable}.pchtxt"
         file_path = os.path.join(patch_folder, file_name)
 
-        if version_variable == "1.0.1":
-            nsobidid = "E74395F066FD8CCB51EC17B39B3DA2C8CF520089"
+        if version_variable == "1.6.0":
+            nsobidid = "8E9978D50BDD20B4C8395A106C27FFDE"
             visual_fix = visual_fixesa
             
 

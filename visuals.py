@@ -11,7 +11,7 @@ def create_visuals(do_120fps, do_60fps):
     if do_120fps:
         dynamic = "enabled"
         
-    visuals1_0_1 = f'''// 60 FPS Mode
+    visuals1_6_0 = f'''// 60 FPS Mode
 @{fps60}
 01614954 08008052
 01614D84 08F08752
@@ -26,7 +26,7 @@ def create_visuals(do_120fps, do_60fps):
 '''
 
 
-    visual_fixes.append(visuals1_0_1)
+    visual_fixes.append(visuals1_6_0)
 
     
     return visual_fixes
