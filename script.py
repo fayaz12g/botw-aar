@@ -155,7 +155,7 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
             if name not in do_not_scale_rootpane:
                 patch_blyt(name, 'N_InOut_00', 'scale_x', s1)
                 patch_blyt(name, 'N_In_00', 'scale_x', s1)
-                patch_blyt(name, 'N_All_00', 'scale_x', s1)
+                # patch_blyt(name, 'N_All_00', 'scale_x', s1)
             if name in rootpane_by_y:
                 patch_blyt(name, 'N_InOut_00', 'scale_y', 1/s1)
                 patch_blyt(name, 'N_InOut_00', 'scale_x', 1)
