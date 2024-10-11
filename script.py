@@ -24,6 +24,7 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
         for filename, panes in layout_map.items():
             modified_name = filename + "_name"
             paths = file_paths.get(modified_name, [])
+            print (f"Shifting {filename} by {direction}")
             
             if not paths:
                 default_path = os.path.join(romfs_folder, "Pack", "Layout", filename, "blyt", f"{filename}.bflyt")
@@ -45,9 +46,6 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
                     
                     new_value = (current_value * s1**-1)
                     new_value_hex = float2hex(new_value)
-
-                    if pane == "L_SetItem_00" or pane == "L_SetItem_01" or pane == "L_SetItem_02" :
-                        print(pane, current_value, new_value)
                     
                     content = content[:idx] + new_value_hex + content[idx+8:]
                 
