@@ -147,8 +147,8 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
 
         patch_blyt('Title_00', 'Black8_00', 'scale_x', 1/s1)
 
-        patch_blyt('Title_00', 'N_InOut_00', 'scale_x', 1/s1)
-        patch_blyt('Title_00', 'N_InOut_00', 'scale_y', 1/s1)
+        # patch_blyt('Title_00', 'N_InOut_00', 'scale_x', 1/s1)
+        # patch_blyt('Title_00', 'N_InOut_00', 'scale_y', 1/s1)
 
         if HUD_pos == 'corner':
             print("Shifitng elements for corner HUD")
