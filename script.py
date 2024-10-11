@@ -20,6 +20,7 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
                     'Rupee_00': ['W_Base_00', "T_Rupee_00", "P_Icon_00", "Pa_PlusMinus_00"],
                     'MainScreen_00': ['Pa_HeartGauge_00', 'Pa_Gauge_00', "N_Pos_00", "Pa_PlayerStatusUp_00", "Pa_Sensor_00", "Pa_SoundGauge_00", "Pa_TempMeter_00", "Pa_Weather_00", "Pa_Time_00",
                                       "Pa_SinJu_00", 'Pa_SinJu_01', "Pa_SinJu_02", 'Pa_SinJu_03'],
+                    'PaWeather00': ["N_InOut_00"]
                 }
 
     def patch_ui_layouts(direction):
