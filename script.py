@@ -93,12 +93,8 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
             try:
                 start_pane = content.index(pane_hex, start_rootpane)
             except ValueError:
-                # If "N_In_Out_00" is passed and not found, fall back to "RootPane"
-                if pane == "N_InOut_00" or pane == "N_In_00":
-                    print(f"Pane {pane} not found. Using RootPane instead.")
-                    start_pane = start_rootpane
-                else:
-                    raise ValueError(f"Pane {pane} not found in {filename}.")
+                print(f"Pane {pane} not found. Using RootPane instead.")
+                start_pane = start_rootpane
 
             idx = start_pane + offset_dict[operation]
             content_new = content[:idx] + float2hex(value) + content[idx+8:]
