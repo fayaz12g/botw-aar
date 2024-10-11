@@ -333,7 +333,7 @@ def create_mod():
         if "blyt" in dirs:
             parent_folder = os.path.dirname(root)
             new_blarc_file = os.path.join(parent_folder, os.path.basename(root) + ".sblarc")
-            pack(root, ">", 1, new_blarc_file, sub)
+            pack(root, ">", 9, new_blarc_file, sub)
             sub = sub + 1
             shutil.rmtree(root) 
     

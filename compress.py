@@ -84,6 +84,7 @@ def pack(root, endianness, level, outname, x):
         
     if level == 1:
         print("Repacking sub archive. (" + f"{x}" + "/4)")
+
     with open(outname, "wb+") as output:
         output.write(outData)
 
@@ -114,14 +115,3 @@ except ImportError:
         import libyaz0
     else:
         sys.exit(1)
-
-def pack_folder_to_blarc(folder_path, output_file):
-    """
-    Pack the files and folders in the folder_path to a .blarc output_file.
-    """
-    root = os.path.abspath(folder_path)
-    endianness = '>'
-    level = -1
-
-    pack(root, endianness, level, output_file)
-
