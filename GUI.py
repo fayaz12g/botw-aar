@@ -336,7 +336,7 @@ def create_mod():
     for root, dirs, _ in os.walk(pack_folder):
         if "Layout" in dirs:
             parent_folder = os.path.dirname(root)
-            new_blarc_file = os.path.join(parent_folder, os.path.basename(root) + ".Pack")
+            new_blarc_file = os.path.join(parent_folder, os.path.basename(root) + ".pack")
             pack_folder_to_blarc(root, new_blarc_file)
             shutil.rmtree(root) 
 

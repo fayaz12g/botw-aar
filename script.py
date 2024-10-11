@@ -150,6 +150,7 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
             print("Shifitng elements for corner HUD")
             patch_ui_layouts("x")
 
+    else:
         s1 = aspect_ratio / (16/9)
         s2 = 1-s1
         s3 = s2/s1
