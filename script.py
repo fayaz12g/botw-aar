@@ -12,6 +12,7 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
 
     layout_map = {
                     'Title_00': ['N_CaptureLogo_00', "N_Capture_01", "N_CaptureTrial_00", "N_CaptureTrialSh_00"],
+                    'PaSaveIcon_00': ['N_Capture_00', "N_InOut_00", "N_Glow_00"],
                 }
 
     def patch_ui_layouts(direction):
@@ -93,9 +94,9 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
             
     blyt_folder = os.path.abspath(os.path.join(romfs_folder))
     
-    do_not_scale_rootpane = []
+    do_not_scale_rootpane = ["Fade_00", "Thanks_00"]
    
-    rootpane_by_y = []
+    rootpane_by_y = ["Fade_00", "Thanks_00"]
 
     # Initialize a dictionary to store lists of paths
     file_paths = {}
@@ -145,7 +146,7 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
                 patch_blyt(name, 'RootPane', 'scale_x', 1)
 
         patch_blyt('Title_00', 'Black8_00', 'scale_x', 1/s1)
-        
+
         patch_blyt('Title_00', 'N_InOut_00', 'scale_x', 1/s1)
         patch_blyt('Title_00', 'N_InOut_00', 'scale_y', 1/s1)
 
