@@ -324,12 +324,16 @@ def create_mod():
     # Cleaning and Repacking #
     ##########################
     
+    
+    x = 1
+
     print("Repacking new sblarc files. This step may take a while")
     for root, dirs, _ in os.walk(romfs_folder):
         if "blyt" in dirs:
             parent_folder = os.path.dirname(root)
             new_blarc_file = os.path.join(parent_folder, os.path.basename(root) + ".sblarc")
-            pack_folder_to_blarc(root, new_blarc_file)
+            pack(dirs, ">", 1, new_blarc_file, x)
+            # pack_folder_to_blarc(root, new_blarc_file)
             shutil.rmtree(root) 
     
     print("Repacking new pack files. This step may take a while")
@@ -337,7 +341,8 @@ def create_mod():
         if "Layout" in dirs:
             parent_folder = os.path.dirname(root)
             new_blarc_file = os.path.join(parent_folder, os.path.basename(root) + ".pack")
-            pack_folder_to_blarc(root, new_blarc_file)
+            pack(dirs, ">", -1, new_blarc_file, x)
+            # pack_folder_to_blarc(root, new_blarc_file)
             shutil.rmtree(root) 
 
 
