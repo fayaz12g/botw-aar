@@ -19,7 +19,7 @@ def create_visuals(do_120fps, do_60fps):
 01614DA4 21000012
 @disabled
 
-// 120 FPS Mode (Expiremental)
+// Disable Dynamic Resolution
 @{dynamic}
 0150ABA4 1F2003D5
 @stop

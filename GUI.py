@@ -6,7 +6,10 @@ from tkinter.filedialog import askdirectory
 from customtkinter import *
 from threading import Thread
 import shutil
+from download import *
+from patch import *
 import getpass
+from script import patch_blarc
 from PIL import Image
 import webbrowser
 from tkinter import *
@@ -22,13 +25,10 @@ from pathlib import Path
 import sys
 import shutil
 import psutil
-from functions import *
-from patch import *
-from visuals import *
+from visuals import create_visuals
 from compress import *
-from extract import *
-from download import *
-from script import *
+from extract import extract_blarc
+from functions import *
 import pyautogui
 
 
@@ -37,7 +37,7 @@ import pyautogui
 #### Create Window ####
 #######################
 
-tool_version = "1.0.1"
+tool_version = "2.0.0"
 
 root = customtkinter.CTk()
 root.title(f"Fayaz's Settings {tool_version} for The Legend of Zelda: Breath of the Wild")
@@ -80,7 +80,7 @@ corner_HUD = BooleanVar(value=True)
 
 # Generation
 output_yuzu = BooleanVar()
-output_suyu = BooleanVar()
+output_sudachi = BooleanVar()
 output_ryujinx = BooleanVar()
 open_when_done = BooleanVar()
 mod_name_var = StringVar(value="Fayaz's Settings")
@@ -132,7 +132,7 @@ class PrintRedirector:
         self.text_widget = text_widget
         self.buffer = ""
         self.text_widget.configure(state='disabled')  # Disable user input
-        self.text_widget.configure("custom_tag", background='lightgray', foreground='black')
+        # self.text_widget.configure("custom_tag", background='lightgray', foreground='black')
 
     def write(self, text):
         self.buffer += text
@@ -253,9 +253,9 @@ def create_mod():
     if output_ryujinx.get() is True:
         input_folder = f"C:/Users/{username}/AppData/Roaming/Ryujinx/mods/contents/{gameid}"
         process_name = "ryujinx.exe"
-    if output_suyu.get() is True:
-        input_folder = f"C:/Users/{username}/AppData/Roaming/suyu/load/{gameid}"
-        process_name = "suyu.exe"
+    if output_sudachi.get() is True:
+        input_folder = f"C:/Users/{username}/AppData/Roaming/sudachi/load/{gameid}"
+        process_name = "sudachi.exe"
     else:
         process_name = "yuzu.exe"
     if input_folder:
@@ -281,25 +281,64 @@ def create_mod():
     if os.path.exists(text_folder):
         shutil.rmtree(text_folder)
 
-    # # Download the BOTW Layout Files
-    # BOTW_download(input_folder, mod_name)
+    # Download the BOTW Layout Files
+    BOTW_download(input_folder, mod_name)
 
     # Create the PCHTXT Files
     visual_fixes = create_visuals(do_60fps.get(), do_dynamic.get())
     BOTW_patch(patch_folder, str(ratio_value), str(scaling_factor), visual_fixes)
-    ui_folder = os.path.join(input_folder, mod_name, "romfs", "ui")
+    romfs_folder = os.path.join(input_folder, mod_name, "romfs")
+    pack_folder = os.path.join(input_folder, mod_name, "romfs", "Pack")
 
     # Download and put Controlelr Files in Place
     # controller_files(controller_type.get(), theromfs_folder)
 
-    # # Decomperss the .zst into .bfres
-    # BOTW_extract(ui_folder)
+    ####################
+    # PACK Extraction #
+    ####################
 
-    # # Perform Pane Strecthing
-    # BOTW_hud(str(ratio_value), HUD_pos, ui_folder)
+    for root, _, files in os.walk(romfs_folder):
+        for file in files:
+            if file.lower().endswith(".pack"):
+                file_path = os.path.join(root, file)
+                print(f"Extracting {file}.")
+                extract_blarc(file_path)
+                os.remove(file_path)
+                    
+    ####################
+    # SBLARC Extraction #
+    ####################
 
-    # # Compress layout folders and delete them
-    # BOTW_compress(ui_folder)
+    for root, _, files in os.walk(romfs_folder):
+        for file in files:
+            if file.lower().endswith(".sblarc"):
+                file_path = os.path.join(root, file)
+                print(f"Extracting {file}.")
+                extract_blarc(file_path)
+                os.remove(file_path)
+
+    # Perform Pane Strecthing
+    patch_blarc(str(ratio_value), HUD_pos, romfs_folder)
+
+    ##########################
+    # Cleaning and Repacking #
+    ##########################
+    
+    print("Repacking new sblarc files. This step may take a while")
+    for root, dirs, _ in os.walk(romfs_folder):
+        if "blyt" in dirs:
+            parent_folder = os.path.dirname(root)
+            new_blarc_file = os.path.join(parent_folder, os.path.basename(root) + ".sblarc")
+            pack_folder_to_blarc(root, new_blarc_file)
+            shutil.rmtree(root) 
+    
+    print("Repacking new pack files. This step may take a while")
+    for root, dirs, _ in os.walk(pack_folder):
+        if "Layout" in dirs:
+            parent_folder = os.path.dirname(root)
+            new_blarc_file = os.path.join(parent_folder, os.path.basename(root) + ".Pack")
+            pack_folder_to_blarc(root, new_blarc_file)
+            shutil.rmtree(root) 
 
 
     if open_when_done.get() == True:
@@ -359,7 +398,7 @@ def pack_widgets():
     emulator_label.pack(pady=10)
     yuzu_checkbox.pack(side="top")
     ryujinx_checkbox.pack(side="top", pady=5)
-    suyu_checkbox.pack(side="top")
+    sudachi_checkbox.pack(side="top")
 
     output_folder_button.pack()
     output_folder_button.pack(pady=10)
@@ -416,7 +455,7 @@ def forget_packing():
 
     emulator_label.pack_forget()
     yuzu_checkbox.pack_forget()
-    suyu_checkbox.pack_forget()
+    sudachi_checkbox.pack_forget()
     ryujinx_checkbox.pack_forget()
 
     output_folder_button.pack_forget()
@@ -607,9 +646,9 @@ corner_checkbox.select()
 notebook.add("Generate")
 
 emulator_label= customtkinter.CTkLabel(master=notebook.tab("Generate"), text="Select your Emulator OR choose a custom output folder, then click Generate.")
-yuzu_checkbox = customtkinter.CTkRadioButton(master=notebook.tab("Generate"), text="Yuzu", value=1, variable=output_yuzu, command=lambda: [output_suyu.set(False), output_ryujinx.set(False), repack_widgets()])  
-ryujinx_checkbox = customtkinter.CTkRadioButton(master=notebook.tab("Generate"), text="Ryujinx", value=2, variable=output_ryujinx, command=lambda: [output_yuzu.set(False), output_suyu.set(False), repack_widgets()])  
-suyu_checkbox = customtkinter.CTkRadioButton(master=notebook.tab("Generate"), text="Suyu", value=2, variable=output_suyu, command=lambda: [output_yuzu.set(False), output_ryujinx.set(False), repack_widgets()])  
+yuzu_checkbox = customtkinter.CTkRadioButton(master=notebook.tab("Generate"), text="Yuzu/Torzu", value=1, variable=output_yuzu, command=lambda: [output_sudachi.set(False), output_ryujinx.set(False), repack_widgets()])  
+ryujinx_checkbox = customtkinter.CTkRadioButton(master=notebook.tab("Generate"), text="Ryujinx", value=2, variable=output_ryujinx, command=lambda: [output_yuzu.set(False), output_sudachi.set(False), repack_widgets()])  
+sudachi_checkbox = customtkinter.CTkRadioButton(master=notebook.tab("Generate"), text="Sudachi", value=2, variable=output_sudachi, command=lambda: [output_yuzu.set(False), output_ryujinx.set(False), repack_widgets()])  
 
 output_folder_button = customtkinter.CTkButton(master=notebook.tab("Generate"), text="Custom Output Folder", fg_color="gray", hover_color="black", command=select_output_folder)
 
