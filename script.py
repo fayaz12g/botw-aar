@@ -11,7 +11,7 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
     file_paths = {}
 
     layout_map = {
-                    # 'Throbber': ['A_Save_00'],
+                    'Title_00': ['N_CaptureLogo_00', "N_Capture_01", "N_CaptureTrial_00", "N_CaptureTrialSh_00"],
                 }
 
     def patch_ui_layouts(direction):
@@ -144,7 +144,10 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
                 patch_blyt(name, 'RootPane', 'scale_y', 1/s1)
                 patch_blyt(name, 'RootPane', 'scale_x', 1)
 
-        # patch_blyt('SubMenuHeader', 'N_Header_00', 'scale_x', 1/s1)
+        patch_blyt('Title_00', 'Black8_00', 'scale_x', 1/s1)
+        
+        patch_blyt('Title_00', 'N_InOut_00', 'scale_x', 1/s1)
+        patch_blyt('Title_00', 'N_InOut_00', 'scale_y', 1/s1)
 
         if HUD_pos == 'corner':
             print("Shifitng elements for corner HUD")
