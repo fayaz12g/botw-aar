@@ -18,6 +18,8 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
                                 "Logo_W_00", "Logo_W_01", "Logo_W_00_JPja_00", "Logo_W_00_JPja", "P_Blur_08", "P_BigTextSh_00", "T_DummyText_01", "T_Trial_00", "T_DummyText_00", "FBLayout_00", "FBLayout_02", "FBLayout_01", "FBLayout_03"],
                     'PaSaveIcon_00': ['N_Capture_00', "N_InOut_00", "N_Glow_00"],
                     'Rupee_00': ['W_Base_00', "T_Rupee_00", "P_Icon_00", "Pa_PlusMinus_00"],
+                    'MainScreen_00': ['Pa_HeartGauge_00', 'Pa_Gauge_00', "N_Pos_00", "Pa_PlayerStatusUp_00", "Pa_Sensor_00", "Pa_SoundGauge_00", "Pa_TempMeter_00", "Pa_Weather_00", "Pa_Time_00",
+                                      "Pa_SinJu_00", 'Pa_SinJu_01', "Pa_SinJu_02", 'Pa_SinJu_03'],
                 }
 
     def patch_ui_layouts(direction):
@@ -157,6 +159,7 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
             if name not in do_not_scale_rootpane:
                 patch_blyt(name, 'N_InOut_00', 'scale_x', s1)
                 patch_blyt(name, 'N_In_00', 'scale_x', s1)
+                patch_blyt(name, 'N_All_00', 'scale_x', s1)
             if name in rootpane_by_y:
                 patch_blyt(name, 'N_InOut_00', 'scale_y', 1/s1)
                 patch_blyt(name, 'N_InOut_00', 'scale_x', 1)
