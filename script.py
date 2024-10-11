@@ -92,7 +92,7 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
                 start_pane = content.index(pane_hex, start_rootpane)
             except ValueError:
                 # If "N_In_Out_00" is passed and not found, fall back to "RootPane"
-                if pane == "N_InOut_00":
+                if pane == "N_InOut_00" or pane == "N_In_00":
                     print(f"Pane {pane} not found. Using RootPane instead.")
                     start_pane = start_rootpane
                 else:
@@ -156,6 +156,7 @@ def patch_blarc(aspect_ratio, HUD_pos, romfs_folder):
                     print(f"Skipping RootPane scaling of {name}")
             if name not in do_not_scale_rootpane:
                 patch_blyt(name, 'N_InOut_00', 'scale_x', s1)
+                patch_blyt(name, 'N_In_00', 'scale_x', s1)
             if name in rootpane_by_y:
                 patch_blyt(name, 'N_InOut_00', 'scale_y', 1/s1)
                 patch_blyt(name, 'N_InOut_00', 'scale_x', 1)
